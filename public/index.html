@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chat gay 🌈</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css?v=2.5">
+</head>
+<body>
+<div class="rainbow-top"></div>
+<main id="app">
+<section id="home" class="screen home">
+  <div class="home-card">
+    <div class="logo-heart">🌈</div>
+    <p class="eyebrow">AMISTAD · ORGULLO · CONEXIÓN</p>
+    <h1>Chat <span>gay</span></h1>
+    <p class="subtitle">Un espacio para conversar, conocer gente y compartir buenas vibras. 💗</p>
+    <div class="rainbow-orbs"><span>😊</span><span>🏳️‍🌈</span><span>💖</span></div>
+    <button id="openJoin" class="primary-btn">Inicio <span>→</span></button>
+    <p class="tiny-note">20 salas · hasta 500 personas por sala</p>
+  </div>
+</section>
+
+<section id="roomScreen" class="screen room hidden">
+  <header class="topbar">
+    <div class="brand">🌈 <strong>Chat gay</strong></div>
+    <div class="room-title"><span class="live-dot"></span><span id="roomTitle">—</span></div>
+    <div class="top-actions">
+      <div class="private-audio" title="Sonidos de chats privados">
+        <button id="privateSoundToggle" class="icon-btn" aria-pressed="true">🔔</button>
+        <input id="privateSoundVolume" type="range" min="0" max="100" value="75" aria-label="Volumen del chat privado">
+      </div>
+      <button id="leaveBtn" class="ghost-btn">Salir</button>
+    </div>
+  </header>
+
+  <div class="room-grid">
+    <aside class="users-panel panel">
+      <div class="panel-title"><span>Personas en la sala</span><span id="roomCount" class="badge">0/500</span></div>
+      <div class="user-list-head"><span>Usuario</span><span>PV</span></div>
+      <div id="userList" class="user-list"></div>
+      <div id="adminBox" class="admin-box hidden">
+        <div class="admin-title">👑 Super Host</div>
+        <div class="admin-help">/kick nick · /ban nick · /quiet nick · /unquiet nick · /announce texto · /muteall</div>
+      </div>
+    </aside>
+
+    <section class="general-panel panel">
+      <div class="panel-title"><span>💬 Chat general</span><span class="subtle">Escribe @nickname para mencionar</span><button id="showGeneralMobile" class="mobile-chat-toggle" type="button">Chat general</button></div>
+      <div id="generalMessages" class="messages"></div>
+      <div class="composer-bar">
+        <div id="generalEmojiPicker" class="emoji-picker hidden"></div>
+        <div class="format-toolbar general-toolbar">
+          <button id="generalEmojiBtn" class="tool-btn emoji-main-btn" type="button" aria-label="Emojis" title="Emojis">😊</button>
+        </div>
+        <form id="generalForm" class="message-form rich-general-form">
+          <div id="generalInput" class="rich-input" contenteditable="true" data-placeholder="Escribe un mensaje..."></div>
+          <button type="submit" class="send-btn">Enviar</button>
+        </form>
+      </div>
+    </section>
+
+    <aside id="privatePanel" class="private-panel panel">
+      <div class="panel-title"><span>💌 Privado</span><span class="panel-title-actions"><span id="privateDot" class="notify-dot hidden">1</span><button id="showGeneralFromPrivate" class="mobile-chat-toggle" type="button">Chat general</button></span></div>
+      <div id="privateThreads" class="private-threads hidden"></div>
+      <div id="privateEmpty" class="private-empty">Presiona 💬 junto a una persona para abrir un privado.</div>
+      <div id="privateChat" class="hidden private-chat">
+        <div class="private-head">
+          <div><strong id="privateName">—</strong><span id="privateMeta">—</span></div>
+          <div class="private-actions"><button id="blockBtn" class="mini-icon" title="Bloquear" aria-label="Bloquear">🔒</button><button id="closePrivateBtn" class="mini-icon close-private-btn" title="Cerrar ventana privada" aria-label="Cerrar ventana privada">×</button></div>
+        </div>
+        <div id="privateMessages" class="messages"></div>
+        <div id="privateEmojiPicker" class="emoji-picker private-picker hidden"></div>
+        <div class="format-toolbar private-toolbar">
+          <button id="privateEmojiBtn" class="tool-btn emoji-main-btn" type="button" title="Emojis">😊</button>
+        </div>
+        <form id="privateForm" class="message-form private-form"><div id="privateInput" class="rich-input" contenteditable="true" data-placeholder="Mensaje privado..."></div><button class="send-btn" type="submit">➤</button></form>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<div id="joinModal" class="modal hidden">
+ <div class="modal-card">
+  <button id="closeJoin" class="modal-close">×</button>
+  <p class="eyebrow">ENTRA A LA COMUNIDAD 🌈</p>
+  <h2>Tu nickname</h2>
+  <form id="joinForm">
+    <label>Nickname <input id="nickname" name="nickname" required maxlength="22" placeholder="Tu nickname"></label>
+    <div id="adminSecretWrap" class="hidden secret-wrap"><label>Contraseña secreta <input id="adminPassword" type="password" autocomplete="off" placeholder="Solo Super Host"></label><small>Campo protegido para Arquelinux.</small></div>
+    <div class="detected-country"><span>🌍</span><div><strong>País detectado automáticamente</strong><small id="detectedCountry">Detectando tu país...</small></div></div>
+    <div class="room-tools"><label>Salas <select id="roomFilter"><option value="available">Solo disponibles</option><option value="all">Todas las salas</option></select></label><label>Sala <select id="roomSelect" required></select></label></div>
+    <div id="roomHint" class="hint"></div>
+    <div id="joinError" class="error"></div>
+    <button class="primary-btn full" type="submit">Entrar a la sala 🌈</button>
+  </form>
+ </div>
+</div>
+<div id="toast" class="toast hidden"></div>
+</main>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/app.js?v=2.5"></script>
+</body>
+</html>
